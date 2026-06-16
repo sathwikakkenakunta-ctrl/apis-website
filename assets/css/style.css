@@ -31,7 +31,7 @@ a,
 button,
 input,
 select {
-  transition: color 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
 .focus-ring:focus-visible,
@@ -112,16 +112,11 @@ select:focus-visible {
   transform: translateX(4px);
 }
 
-.btn-whatsapp {
-  animation: whatsappPulse 2.6s ease-in-out infinite;
-}
-
 .btn-secondary {
   border: 1px solid rgba(37, 99, 235, 0.18);
   background: rgba(255, 255, 255, 0.82);
   color: var(--navy);
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(18px);
 }
 
 .hamburger,
@@ -194,6 +189,7 @@ select:focus-visible {
 
 .hero-section {
   background: #061427;
+  contain: paint;
 }
 
 .hero-section::before {
@@ -206,6 +202,7 @@ select:focus-visible {
     linear-gradient(90deg, rgba(103, 232, 249, 0.055) 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: linear-gradient(to bottom, black, transparent 78%);
+  transform: translateZ(0);
 }
 
 .hero-section::after {
@@ -227,7 +224,8 @@ select:focus-visible {
   height: 100%;
   object-fit: cover;
   opacity: 0.22;
-  filter: saturate(1.2) contrast(1.08);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .hero-video-overlay {
@@ -239,7 +237,6 @@ select:focus-visible {
     radial-gradient(circle at 72% 30%, rgba(6, 182, 212, 0.28), transparent 34%),
     radial-gradient(circle at 24% 64%, rgba(37, 99, 235, 0.2), transparent 36%),
     linear-gradient(135deg, rgba(37, 99, 235, 0.18), transparent 36%, rgba(6, 182, 212, 0.16));
-  mix-blend-mode: screen;
 }
 
 .hero-content-glow {
@@ -251,7 +248,7 @@ select:focus-visible {
   height: 52%;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(15, 23, 42, 0.72), rgba(37, 99, 235, 0.22) 48%, transparent 72%);
-  filter: blur(34px);
+  opacity: 0.72;
 }
 
 .trust-pill {
@@ -267,7 +264,6 @@ select:focus-visible {
   font-weight: 850;
   text-align: center;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
-  backdrop-filter: blur(18px);
 }
 
 .headline-highlight {
@@ -276,7 +272,6 @@ select:focus-visible {
   background: linear-gradient(100deg, #ffffff 0%, #93c5fd 38%, #22d3ee 100%);
   background-clip: text;
   -webkit-background-clip: text;
-  filter: drop-shadow(0 14px 32px rgba(6, 182, 212, 0.28));
 }
 
 .model-lab {
@@ -580,6 +575,8 @@ select:focus-visible {
 
 .section {
   padding-block: clamp(4rem, 8vw, 6rem);
+  content-visibility: auto;
+  contain-intrinsic-size: 760px;
 }
 
 .section-title {
@@ -615,7 +612,6 @@ select:focus-visible {
   border: 1px solid rgba(255, 255, 255, 0.66);
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 22px 55px rgba(15, 23, 42, 0.08);
-  backdrop-filter: blur(18px);
 }
 
 .glass-card {
@@ -709,7 +705,6 @@ select:focus-visible {
   background: linear-gradient(135deg, var(--navy), var(--medical));
   color: white;
   box-shadow: 0 16px 32px rgba(37, 99, 235, 0.24);
-  animation: iconFloat 5.5s ease-in-out infinite;
 }
 
 .card-icon svg {
@@ -1049,10 +1044,33 @@ select:focus-visible {
 }
 
 @media (max-width: 767px) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .btn {
     width: 100%;
     white-space: normal;
     text-align: center;
+  }
+
+  .hero-section::before,
+  .hero-content-glow {
+    display: none;
+  }
+
+  .hero-section::after {
+    background:
+      linear-gradient(90deg, rgba(3, 7, 18, 0.82) 0%, rgba(8, 21, 41, 0.6) 58%, rgba(6, 78, 99, 0.34) 100%),
+      linear-gradient(to bottom, rgba(3, 7, 18, 0.44), rgba(3, 7, 18, 0.7));
+  }
+
+  .hero-video-overlay {
+    background: rgba(6, 182, 212, 0.12);
+  }
+
+  .hero-video-bg {
+    opacity: 0.2;
   }
 
   .model-stage {

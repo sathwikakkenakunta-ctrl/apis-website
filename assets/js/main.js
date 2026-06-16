@@ -3,6 +3,32 @@ const phoneNumber = "xxxxx";
 const header = document.querySelector("header");
 const menuToggle = document.querySelector("#menuToggle");
 const mobileMenu = document.querySelector("#mobileMenu");
+const heroVideo = document.querySelector(".hero-video-bg");
+
+function playHeroVideo() {
+  if (!heroVideo) return;
+  heroVideo.muted = true;
+  heroVideo.playsInline = true;
+
+  const playAttempt = heroVideo.play();
+  if (playAttempt?.catch) {
+    playAttempt.catch(() => {
+      heroVideo.load();
+    });
+  }
+}
+
+if (heroVideo) {
+  if (heroVideo.readyState >= 2) {
+    playHeroVideo();
+  } else {
+    heroVideo.addEventListener("canplay", playHeroVideo, { once: true });
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) playHeroVideo();
+  });
+}
 
 function updateHeaderState() {
   header?.classList.toggle("scrolled", window.scrollY > 12);
